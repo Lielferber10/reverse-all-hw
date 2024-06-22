@@ -187,7 +187,7 @@ _main:
 
         mov     eax, DWORD PTR [ebp-12]
         sub     esp, 8
-        push    0x00000A20              # pushing null,\n
+        push    0x0000000A              # pushing null,\n
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
@@ -197,7 +197,7 @@ _main:
         mov     eax, 0
         mov     ecx, DWORD PTR [ebp-4]
         leave
-        lea     esp, [ecx-4]
+        lea     esp, [ecx]
         ret
 
 FindFunction:                           # placeholder for search_kernel32
