@@ -216,10 +216,10 @@ _main:
         call    esi                     # call printf("%02d\n", resources[4])
         add     esp, 24                 # clear stack
         sub     esp, 12
-        push    0x00000A65              # pushing null,\n,e
-        push    0x6e6f7453              # pushing n,o,t,S
-        push    esp                     # push pointer for "Stone\n"
-        call    esi                     # call printf("Stone\n")
+        push    0x00000000              # pushing null
+        push    0x0065724F              # pushing \n,e,r,O
+        push    esp                     # push pointer for "Ore\n"
+        call    esi                     # call printf("Ore\n")
         add     esp, 24                 # clear stack
         mov     eax, 0
         mov     ecx, DWORD PTR [ebp-4]
