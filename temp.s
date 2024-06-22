@@ -187,7 +187,7 @@ _main:
 
         mov     eax, DWORD PTR [ebp-12]
         sub     esp, 8
-        push    0x0000000A              # pushing null,\n
+        push    0x00000A0D              # pushing null,\n
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
