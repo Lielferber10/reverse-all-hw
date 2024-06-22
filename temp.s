@@ -147,79 +147,52 @@ _main:
 .L2:
         mov     eax, DWORD PTR [ebp-28]
         sub     esp, 8
-        push    0x0000000A              # pushing null,\n
+        push    0x00000020              # pushing null,space
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
-        push    edx                     # push pointer for "%02d\n"
-        call    esi                     # call printf("%02d\n", resources[0])
+        push    edx                     # push pointer for "%02d "
+        call    esi                     # call printf("%02d ", resources[0])
         add     esp, 24                 # clear stack
-        sub     esp, 12
-        push    0x000A                  # pushing null,\n
-        push    0x646F6F57              # pushing d,o,o,W
-        push    esp                     # push pointer for "Wood\n"
-        call    esi                     # call printf("Wood\n")
-        add     esp, 24                 # clear stack
+
         mov     eax, DWORD PTR [ebp-24]
         sub     esp, 8
-        push    0x0000000A              # pushing null,\n
+        push    0x00000020              # pushing null,space
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
-        push    edx                     # push pointer for "%02d\n"
-        call    esi                     # call printf("%02d\n", resources[1])
+        push    edx                     # push pointer for "%02d "
+        call    esi                     # call printf("%02d ", resources[1])
         add     esp, 24                 # clear stack
-        sub     esp, 12
-        push    0x00000A6B              # pushing null,\n,k
-        push    0x63697242              # pushing c,i,r,B
-        push    esp                     # push pointer for "Brick\n"
-        call    esi                     # call printf("Brick\n")
-        add     esp, 24                 # clear stack
+
         mov     eax, DWORD PTR [ebp-20]
         sub     esp, 8
-
-        push    0x0000000A              # pushing null,\n
+        push    0x00000020              # pushing null, space
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
-        push    edx                     # push pointer for "%02d\n"
-        call    esi                     # call printf("%02d\n", resources[2])
+        push    edx                     # push pointer for "%02d "
+        call    esi                     # call printf("%02d ", resources[2])
         add     esp, 24                 # clear stack
-        sub     esp, 12
-        push    0x0000000A              # pushing null,\n
-        push    0x6c6f6f57              # pushing l,o,o,W 
-        push    esp                     # push pointer for "Wool\n"
-        call    esi                     # call printf("Wool\n")
-        add     esp, 24                 # clear stack
+
         mov     eax, DWORD PTR [ebp-16]
         sub     esp, 8
-        push    0x0000000A              # pushing null,\n
+        push    0x00000020              # pushing null, space
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
-        push    edx                     # push pointer for "%02d\n"
-        call    esi                     # call printf("%02d\n", resources[3])
+        push    edx                     # push pointer for "%02d "
+        call    esi                     # call printf("%02d ", resources[3])
         add     esp, 24                 # clear stack
-        sub     esp, 12
-        push    0x00000A6e              # pushing null,\n,n
-        push    0x69617247              # pushing i,a,r,G
-        push    esp                     # push pointer for "Grain\n"
-        call    esi                     # call printf("Grain\n")
-        add     esp, 24                 # clear stack
+
         mov     eax, DWORD PTR [ebp-12]
         sub     esp, 8
-        push    0x0000000A              # pushing null,\n
+        push    0x00000A20              # pushing null,\n
         push    0x64323025              # pushing d,2,0,%
         mov     edx, esp
         push    eax
         push    edx                     # push pointer for "%02d\n"
         call    esi                     # call printf("%02d\n", resources[4])
-        add     esp, 24                 # clear stack
-        sub     esp, 12
-        push    0x00000000              # pushing null
-        push    0x0065724F              # pushing \n,e,r,O
-        push    esp                     # push pointer for "Ore\n"
-        call    esi                     # call printf("Ore\n")
         add     esp, 24                 # clear stack
         mov     eax, 0
         mov     ecx, DWORD PTR [ebp-4]
