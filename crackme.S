@@ -508,20 +508,20 @@ _main:
 	mov	ebp, esp
 	sub	esp, 16
 	call	___main
-	mov	DWORD PTR [esp+4], OFFSET FLAT:_handler
-	mov	DWORD PTR [esp], 8
-	call	_signal
-	mov	DWORD PTR [ebp-4], OFFSET FLAT:__dummy_
-	mov	eax, DWORD PTR [ebp+12]
-	add	eax, 4
-	mov	eax, DWORD PTR [eax]
-	mov	DWORD PTR [esp], eax
-	call	_atoi
-	mov	DWORD PTR [ebp-8], eax
-	mov	eax, DWORD PTR [ebp+12]
-	mov	DWORD PTR [esp+4], eax
-	mov	eax, DWORD PTR [ebp+8]
-	mov	DWORD PTR [esp], eax
+	mov	DWORD PTR [esp+4], OFFSET FLAT:_handler 	#the level 4 address at esp +4 = ebp - 12
+	mov	DWORD PTR [esp], 8 							# holds 8 at ebp - 16
+	call	_signal 								# for signal 8 we would call level 4
+	mov	DWORD PTR [ebp-4], OFFSET FLAT:__dummy_ 	# store the address of level 3 in ebp - 4
+	mov	eax, DWORD PTR [ebp+12] 					# write arguement 2 to eax
+	add	eax, 4 										# arguement 2 +4 is the 5th char
+	mov	eax, DWORD PTR [eax]						# we put the chars in eax
+	mov	DWORD PTR [esp], eax 						# we push it ebp -16 and convert to int
+	call	_atoi 
+	mov	DWORD PTR [ebp-8], eax 						# we write the integer value of arg 2 from 5th char in ebp -8 if arg3 isn't num than 0
+	mov	eax, DWORD PTR [ebp+12]						# eax holds the pointer to arg 2
+	mov	DWORD PTR [esp+4], eax 						# we write that to ebp -12
+	mov	eax, DWORD PTR [ebp+8] 						# we write the address of first arguement to eax
+	mov	DWORD PTR [esp], eax						# we put it in the head
 	call	_level1
 	mov	eax, DWORD PTR [ebp-8]
 	mov	DWORD PTR [esp], eax
