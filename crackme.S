@@ -520,11 +520,11 @@ _main:
 	mov	DWORD PTR [ebp-8], eax 						# we write the integer value of arg 2 from 5th char in ebp -8 if arg3 isn't num than 0
 	mov	eax, DWORD PTR [ebp+12]						# eax holds the pointer to arg 2
 	mov	DWORD PTR [esp+4], eax 						# we write that to ebp -12
-	mov	eax, DWORD PTR [ebp+8] 						# we write the address of first arguement to eax
+	mov	eax, DWORD PTR [ebp+8] 						# we write  first arguement to eax
 	mov	DWORD PTR [esp], eax						# we put it in the head
 	call	_level1
-	mov	eax, DWORD PTR [ebp-8]
-	mov	DWORD PTR [esp], eax
+	mov	eax, DWORD PTR [ebp-8] 						#after level 1 we write the 2nd arguement value to eax
+	mov	DWORD PTR [esp], eax 						# we write it at the head
 	call	_level2
 	mov	eax, DWORD PTR [ebp+12]
 	mov	eax, DWORD PTR [eax+8]
