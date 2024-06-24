@@ -224,46 +224,46 @@ _rand_32:
 	mov	ebp, esp
 	sub	esp, 8
 	mov	eax, DWORD PTR [ebp+8]
-	mov	eax, DWORD PTR [eax]
+	mov	eax, DWORD PTR [eax] 	
 	mov	DWORD PTR [ebp-4], eax
 	mov	eax, DWORD PTR [ebp-4]
 	imul	eax, eax, 1103515245
 	mov	DWORD PTR [ebp-4], eax
 	add	DWORD PTR [ebp-4], 12345
-	mov	eax, DWORD PTR [ebp-4]
+	mov	eax, DWORD PTR [ebp-4]	#x = (ebp - 8 of main) * 1103515245 + 12345
 	shr	eax, 16
 	and	eax, 2047
 	mov	DWORD PTR [ebp-8], eax
 	mov	eax, DWORD PTR [ebp-4]
 	imul	eax, eax, 1103515245
 	mov	DWORD PTR [ebp-4], eax
-	add	DWORD PTR [ebp-4], 12345
-	sal	DWORD PTR [ebp-8], 10
+	add	DWORD PTR [ebp-4], 12345	
+	sal	DWORD PTR [ebp-8], 10	
 	mov	eax, DWORD PTR [ebp-4]
 	shr	eax, 16
 	and	eax, 1023
-	mov	edx, eax
+	mov	edx, eax				
 	mov	eax, DWORD PTR [ebp-8]
 	xor	eax, edx
-	mov	DWORD PTR [ebp-8], eax
+	mov	DWORD PTR [ebp-8], eax 
 	mov	eax, DWORD PTR [ebp-4]
 	imul	eax, eax, 1103515245
 	mov	DWORD PTR [ebp-4], eax
-	add	DWORD PTR [ebp-4], 12345
-	sal	DWORD PTR [ebp-8], 10
-	mov	eax, DWORD PTR [ebp-4]
+	add	DWORD PTR [ebp-4], 12345 
+	sal	DWORD PTR [ebp-8], 10   
+	mov	eax, DWORD PTR [ebp-4]  
 	shr	eax, 16
 	and	eax, 1023
-	mov	edx, eax
+	mov	edx, eax				
 	mov	eax, DWORD PTR [ebp-8]
 	xor	eax, edx
-	mov	DWORD PTR [ebp-8], eax
+	mov	DWORD PTR [ebp-8], eax	 
 	mov	eax, DWORD PTR [ebp+8]
 	mov	edx, DWORD PTR [ebp-4]
-	mov	DWORD PTR [eax], edx
+	mov	DWORD PTR [eax], edx	#*(first arg of level2) = w
 	mov	eax, DWORD PTR [ebp-8]
 	leave
-	ret
+	ret							
 	.section .rdata,"dr"
 LC10:
 	.ascii "Level 4 Passed!\0"
@@ -344,7 +344,7 @@ L27:
 	add	eax, 1
 	and	eax, 3
 	test	eax, eax
-	jne	L25
+	jne	L25					#always taken
 	mov	DWORD PTR [esp], 10
 	call	_putchar
 	jmp	L26
@@ -372,7 +372,7 @@ LC14:
 	.globl	_level1
 	.def	_level1;	.scl	2;	.type	32;	.endef
 _level1:
-	push	ebp
+	push ebp
 	mov	ebp, esp
 	sub	esp, 4
 	cmp	DWORD PTR [ebp+8], 1
@@ -408,7 +408,7 @@ _level2:
 L34:
 	lea	eax, [ebp+8]
 	mov	DWORD PTR [esp], eax
-	call	_rand_32
+	call	_rand_32 			#changes first arg of level2 and return eax = complicated
 	cdq
 	shr	edx, 24
 	add	eax, edx
@@ -431,7 +431,7 @@ L33:
 	call	_scanf
 	mov	eax, DWORD PTR [ebp-24]
 	test	eax, eax
-	js	L43
+	js	L43							#jump if first input arg < 0 (we don't want it)
 	mov	eax, DWORD PTR [ebp-24]
 	mov	edx, eax
 	lea	eax, [ebp-37]
@@ -508,23 +508,23 @@ _main:
 	mov	ebp, esp
 	sub	esp, 16
 	call	___main
-	mov	DWORD PTR [esp+4], OFFSET FLAT:_handler 	#the level 4 address at esp +4 = ebp - 12
-	mov	DWORD PTR [esp], 8 							# holds 8 at ebp - 16
-	call	_signal 								# for signal 8 we would call level 4
-	mov	DWORD PTR [ebp-4], OFFSET FLAT:__dummy_ 	# store the address of level 3 in ebp - 4
-	mov	eax, DWORD PTR [ebp+12] 					# write arguement 2 to eax
-	add	eax, 4 										# arguement 2 +4 is the 5th char
-	mov	eax, DWORD PTR [eax]						# we put the chars in eax
-	mov	DWORD PTR [esp], eax 						# we push it ebp -16 and convert to int
-	call	_atoi 
-	mov	DWORD PTR [ebp-8], eax 						# we write the integer value of arg 2 from 5th char in ebp -8 if arg3 isn't num than 0
-	mov	eax, DWORD PTR [ebp+12]						# eax holds the pointer to arg 2
-	mov	DWORD PTR [esp+4], eax 						# we write that to ebp -12
-	mov	eax, DWORD PTR [ebp+8] 						# we write  first arguement to eax
-	mov	DWORD PTR [esp], eax						# we put it in the head
-	call	_level1
-	mov	eax, DWORD PTR [ebp-8] 						#after level 1 we write the 2nd arguement value to eax
-	mov	DWORD PTR [esp], eax 						# we write it at the head
+	mov	DWORD PTR [esp+4], OFFSET FLAT:_handler
+	mov	DWORD PTR [esp], 8
+	call	_signal
+	mov	DWORD PTR [ebp-4], OFFSET FLAT:__dummy_
+	mov	eax, DWORD PTR [ebp+12]
+	add	eax, 4
+	mov	eax, DWORD PTR [eax]
+	mov	DWORD PTR [esp], eax 		#top_stack = *(_main arg2 + 4)
+	call	_atoi
+	mov	DWORD PTR [ebp-8], eax
+	mov	eax, DWORD PTR [ebp+12]
+	mov	DWORD PTR [esp+4], eax
+	mov	eax, DWORD PTR [ebp+8]
+	mov	DWORD PTR [esp], eax
+	call	_level1					#pass iff arg1 != null
+	mov	eax, DWORD PTR [ebp-8]
+	mov	DWORD PTR [esp], eax
 	call	_level2
 	mov	eax, DWORD PTR [ebp+12]
 	mov	eax, DWORD PTR [eax+8]
