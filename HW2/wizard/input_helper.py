@@ -1,4 +1,5 @@
 expected = 'CEFKOIAMMBLAICBDEMDEBNGNFBCK'
+print(len(expected))
 expected = expected[::-1]
 res = 'I'
 

@@ -72,11 +72,11 @@ for x7 in range(13):
                    
                    eq1 = (res[1] + res[2] + res[3] + res[4])
                    eq2 = (res[7]+res[8]+res[9]+res[10])
-                   eq3=(res[0]+res[2]+res[5]+res[7])
+                   eq3 = (res[0]+res[2]+res[5]+res[7])
                    eq4 = (res[0]+res[3]+res[6]+res[10])
-                   eq5=(res[1]+res[5]+res[8]+res[11])
-                   eq6=(res[4]+res[6]+res[9]+res[11])
-                   eq7=(res[0]+res[1]+res[4]+res[7]+res[10]+res[11])
+                   eq5 = (res[1]+res[5]+res[8]+res[11])
+                   eq6 = (res[4]+res[6]+res[9]+res[11])
+                   eq7 = (res[0]+res[1]+res[4]+res[7]+res[10]+res[11])
                    if eq1== eq2 ==eq3 == eq4==eq5 == eq6 == eq7 == 26:
                        print(res)
                    
