@@ -1,3 +1,5 @@
+# We used this function to find solutions to the equation systems in the wizard's safe.
+
 allowed = [i for i in range(1,13)]
 used = []
 res = [0 for i in range(12)]

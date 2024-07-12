@@ -1,3 +1,5 @@
+# This function helped us calculate the first input for the wizard's safe
+
 expected = 'CEFKOIAMMBLAICBDEMDEBNGNFBCK'
 print(len(expected))
 expected = expected[::-1]
