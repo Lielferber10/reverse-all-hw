@@ -1,7 +1,7 @@
 import subprocess
 
 # Define the path to the executable and the arguments
-exe_path = 'keygen.exe'
+exe_path = 'keygen.exe '
 
 mapping = {}
 
@@ -14,13 +14,11 @@ for chr_idx in range(32, 127):
 
     mapping[result.stdout] = chr(chr_idx)
 
-mapping['8'] = '*'
+#mapping['8'] = '*'
 
 def decode_keygen(key: str):
     return ''.join(mapping[char] for char in key if char in mapping)
 
 print(decode_keygen('7VLV8OM84T9CKKMQ'))
 
-args = ['wuYu*^g*\jkVFFg}']
-result = subprocess.run([exe_path] + args, capture_output=True, text=True)
-print(result.stdout)
+
