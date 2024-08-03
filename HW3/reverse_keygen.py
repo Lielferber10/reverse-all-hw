@@ -14,7 +14,7 @@ for chr_idx in range(32, 127):
 
     mapping[result.stdout] = chr(chr_idx)
 
-#mapping['8'] = '*'
+mapping['8'] = '*'
 
 def decode_keygen(key: str):
     return ''.join(mapping[char] for char in key if char in mapping)
