@@ -21,6 +21,7 @@ FUNC_PTR original_func_address;
 DWORD lpProtect = 0;
 LPVOID IAT;
 FUNC_PTR JumpTo;
+int required_ret = 0x401917;
 
 // Helper function to remove the hook (for the current call):
 void _stdcall remove_hook() {
@@ -45,10 +46,16 @@ __declspec(naked) void funcHook() {
 	// Assembly part. Might call restore_hook somewhere inside
 	__asm {
 		// ...
-		// call restore_hook;
-		// TODO: ADD THE DECRYPT OF THE PARAMS
-		// IN THE FIRST ARGUEMENT WE WOULD HAVE THE BUFFER THEN WE WOULD Have to JMP TO original_func_address
-		// ret; // maybe
+		mov eax, [esp];
+		cmp eax, required_ret
+		jne not_hook
+
+		call decrypt
+
+		not_hook:
+		mov eax, original_func_address;
+		jmp eax
+
 	}
 }
 
@@ -58,13 +65,13 @@ void setHook() {
 
 	if ((h == NULL) || (h2 == NULL)) { return; }
 
-	original_func_address = (FUNC_PTR)GetProcAddress(h2, "fflush");
+	original_func_address = (FUNC_PTR)GetProcAddress(h2, "puts");
 	if (original_func_address == NULL) {
 		return;
 	}
 
 	int addr_beginning_of_our_exe = 0x401000; // change!
-	int addr_func_to_hook_in_IAT = 0x40A230; // change!
+	int addr_func_to_hook_in_IAT = 0x40A258; // change!
 	IAT = h + (addr_func_to_hook_in_IAT - addr_beginning_of_our_exe) / 4; // Calc address of address to override in IAT
 
 	JumpTo = (FUNC_PTR)((char*)&funcHook);
