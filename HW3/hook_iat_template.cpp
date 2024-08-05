@@ -1,6 +1,12 @@
 #include "pch.h"
 #include <Windows.h>
 #include <stdio.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <cstring>
+#include <stdexcept>
 // Add additional includes if needed
 // using namespace std;
 
@@ -36,6 +42,87 @@ void _stdcall restore_hook() {
 	memcpy(IAT, &JumpTo, 0x4);
 	VirtualProtect((char*)IAT, 0x4, PAGE_EXECUTE_READ, &lpProtect);
 }
+
+
+//get a buffer with encrypted message and puts inside it the decrypted message
+void decrypt(char* encrypted_str)
+{
+    int i = 0;      // Position in the encrypted string
+    int j = 0;      // Position in the decrypted string
+    int length = strlen(encrypted_str);
+    char decrypted_str[length];
+    while(i < length)
+    {
+        int higher_nibble = 0;
+        int lower_nibble = 0;
+        if(encrypted_str[i] == 10  || encrypted_str[i] == 13)
+        {
+            decrypted_str[j] = encrypted_str[i];
+            j++;
+            i++;
+            continue;
+        }
+
+        if (i + 1 < length - 1 && encrypted_str[i + 1] == 43) {
+            int var_1C = encrypted_str[i++] - 48;
+            i++;
+            higher_nibble = encrypted_str[i++] + var_1C - 48; //not accurate
+        } else if (i + 1 < length - 1 && encrypted_str[i + 1] == 45) {
+            higher_nibble = 0;
+            i += 3;
+        } else if (encrypted_str[i] == 65) {
+            higher_nibble = 1;
+            i++;
+        } else if (encrypted_str[i] == 74) {
+            higher_nibble = 10;
+            i++;
+        } else if (encrypted_str[i] == 81) {
+            higher_nibble = 11;
+            i++;
+        } else if (encrypted_str[i] == 75) {
+            higher_nibble = 12;
+            i++;
+        } else {
+            higher_nibble = encrypted_str[i] - 48;
+            i++;
+        }
+
+
+        if (i + 1 < length - 1 && encrypted_str[i + 1] == 43) {
+            int var_1C = encrypted_str[i++] - 48;
+            i++;
+            lower_nibble = encrypted_str[i++] + var_1C - 48; //not accurate
+        } else if (i + 1 < length - 1 && encrypted_str[i + 1] == 45) {
+            lower_nibble = 0;
+            i += 3;
+        } else if (encrypted_str[i] == 65) {
+            lower_nibble = 1;
+            i++;
+        } else if (encrypted_str[i] == 74) {
+            lower_nibble = 10;
+            i++;
+        } else if (encrypted_str[i] == 81) {
+            lower_nibble = 11;
+            i++;
+        } else if (encrypted_str[i] == 75) {
+            lower_nibble = 12;
+            i++;
+        } else {
+            lower_nibble = encrypted_str[i] - 48;
+            i++;
+        }
+
+        decrypted_str[j] = (higher_nibble << 4) + lower_nibble;
+        j++;
+    }
+    for(int k=0; k < j; k++)
+    {
+        encrypted_str[k] = decrypted_str[k];
+    }
+    encrypted_str[j] = '\0';
+}
+
+
 
 // Hook function. Might use helper functions in C, i.e. void _stdcall helper(int num) {}
 // Might even use only a funcHook c function instead!

@@ -22,16 +22,14 @@ int main(int argc, char** argv)
     ZeroMemory(&pi, sizeof(pi));
     // get the command line argument of the current process
     //LPSTR lpCmdLine = GetCommandLineA();
-    if (argc < 3) {
-        printf("Usage: %s prog_name dll_name\n", argv[0]);
-        return 1;
-    }
 
-    LPSTR lpCmdLine = (LPSTR)argv[1];
-    DLL_PATH = (LPSTR)argv[2];
+
+    LPSTR lpCmdLine = (LPSTR)"client.exe DMSG";
+    
+    DLL_PATH = (LPSTR)"Dll1.dll";
 
     printf("opening process %s\n", lpCmdLine);
-    if (CreateProcessA(lpCmdLine, NULL, NULL, NULL, NULL, CREATE_SUSPENDED, NULL, NULL, &Startup, &pi) == FALSE) {
+    if (CreateProcessA(NULL, lpCmdLine, NULL, NULL, NULL, CREATE_SUSPENDED, NULL, NULL, &Startup, &pi) == FALSE) {
         printf("couldnt open process %s\n", lpCmdLine);
         return 1;
     }
