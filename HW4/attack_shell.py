@@ -38,6 +38,6 @@ while True:
         break
     
     if part4:
-        func_input = "* > $null; " + func_input
+        func_input = "a* > $null; " + func_input
     process.stdin.write(str.encode(func_input + "\n"))
     process.stdin.flush()
